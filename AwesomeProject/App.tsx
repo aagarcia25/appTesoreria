@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
-import {Platform} from 'react-native';
-import {PERMISSIONS, RESULTS, check, request} from 'react-native-permissions';
-import {WebView} from 'react-native-webview';
+import React, { useEffect } from 'react';
+import { Platform } from 'react-native';
+import { PERMISSIONS, RESULTS, check, request } from 'react-native-permissions';
+import InAppBrowser from 'react-native-inappbrowser-reborn';
 
 const App = () => {
   useEffect(() => {
@@ -41,22 +41,34 @@ const App = () => {
       }
     };
 
+   const openBrowser = async () => {
+     try {
+       const options = {
+         showTitle: false,
+         enableUrlBarHiding: true,
+         toolbarColor: 'transparent',
+       };
+
+       await InAppBrowser.open('https://tesoreria-virtual.nl.gob.mx', options);
+     } catch (error) {
+       console.error('Error al abrir el navegador interno:', error);
+     }
+   };
+
+
+    const sslPinningScript = `
+      setTimeout(() => {
+        // Aquí puedes realizar la lógica de SSL Pinning
+        // Comprueba si el certificado recibido es el esperado
+        // Si no coincide, puedes cerrar el navegador o realizar alguna acción
+      }, 0);
+    `;
+
     checkDownloadPermission();
+    openBrowser();
   }, []);
 
-  return (
-    <WebView
-    style={{ flex: 1 }}
-    source={{ uri: 'https://tesoreria-virtual.nl.gob.mx/' }}
-    javaScriptEnabled={true}
-    domStorageEnabled={true}
-    allowFileAccess={true}
-    mixedContentMode="always"
-    originWhitelist={['*']}
-    useWebKit={true} // Para iOS
-    ignoreSslError={true} // Agrega esta línea para ignorar errores SSL
-  />
-  );
+  return null; // No necesitas renderizar nada ya que el navegador se abre en segundo plano
 };
 
 export default App;

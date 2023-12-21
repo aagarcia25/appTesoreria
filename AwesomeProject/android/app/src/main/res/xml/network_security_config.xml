@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">tesoreria-virtual.nl.gob.mx</domain>
+        <!-- Agrega otros dominios según sea necesario -->
+    </domain-config>
+</network-security-config>
