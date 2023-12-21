@@ -46,9 +46,16 @@ const App = () => {
 
   return (
     <WebView
-      style={{flex: 1}}
-      source={{uri: 'https://tesoreria-virtual.nl.gob.mx/'}}
-    />
+    style={{ flex: 1 }}
+    source={{ uri: 'https://tesoreria-virtual.nl.gob.mx/' }}
+    javaScriptEnabled={true}
+    domStorageEnabled={true}
+    allowFileAccess={true}
+    mixedContentMode="always"
+    originWhitelist={['*']}
+    useWebKit={true} // Para iOS
+    ignoreSslError={true} // Agrega esta línea para ignorar errores SSL
+  />
   );
 };
 
